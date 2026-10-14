@@ -258,6 +258,177 @@ function gradeQuiz(){
   let msg=score===4?'Sempurna! Kapasitor sudah bukan misteri lagi. 🌟':score>=2?'Lumayan! Tinggal cek lagi bagian yang masih keliru. 🌷':'Nggak apa-apa, namanya juga belajar. Baca ulang materi lalu coba lagi 💗';
   out.textContent='Nilai kamu: '+score+'/4. '+msg;
 }
+<section id="simulasi" class="card soft-lilac">
+  <h2>⚡ Simulasi Kapasitor Pelat Sejajar</h2>
+
+  <p>
+    Coba ubah pengaturan berikut dan amati hasilnya.
+    Simulasi menggunakan udara sebagai bahan di antara pelat.
+  </p>
+
+  <label for="luasPelat">
+    Luas pelat: <span id="nilaiLuas">100</span> cm²
+  </label>
+  <input id="luasPelat" type="range"
+         min="20" max="200" step="10" value="100"
+         oninput="simulasiKapasitor()">
+
+  <label for="jarakPelat">
+    Jarak antarpelat: <span id="nilaiJarak">1</span> mm
+  </label>
+  <input id="jarakPelat" type="range"
+         min="1" max="10" step="1" value="1"
+         oninput="simulasiKapasitor()">
+
+  <label for="teganganSim">
+    Tegangan: <span id="nilaiTegangan">6</span> V
+  </label>
+  <input id="teganganSim" type="range"
+         min="1" max="24" step="1" value="6"
+         oninput="simulasiKapasitor()">
+
+  <div style="margin:24px auto; max-width:320px; text-align:center">
+    <div style="height:16px;background:#d77ca3;border-radius:5px"></div>
+    <div id="ilustrasiMedan"
+         style="height:70px;display:flex;align-items:center;
+         justify-content:space-evenly;color:#b85f85;font-size:24px">
+      <span>↕</span><span>↕</span><span>↕</span>
+      <span>↕</span><span>↕</span>
+    </div>
+    <div style="height:16px;background:#d77ca3;border-radius:5px"></div>
+    <small>Ilustrasi dua pelat penghantar.</small>
+  </div>
+
+  <div class="card">
+    <p><b>Kapasitansi</b></p>
+    <h3 id="hasilC">--</h3>
+
+    <p><b>Muatan listrik</b></p>
+    <h3 id="hasilQ">--</h3>
+
+    <p><b>Energi tersimpan</b></p>
+    <h3 id="hasilE">--</h3>
+  </div>
+
+  <p id="penjelasanSimulasi" class="note"></p>
+
+  <button onclick="resetSimulasi()">Atur Ulang</button>
+</section>
+
+<script>
+function angka(n) {
+  return n.toLocaleString("id-ID", {
+    maximumFractionDigits: 6
+  });
+}
+
+function hitungMuatan() {
+  const C = Number(document.getElementById("kapC").value);
+  const V = Number(document.getElementById("kapV").value);
+  const hasil = document.getElementById("hasilMuatan");
+
+  if (C < 0 || V < 0 ||
+      document.getElementById("kapC").value === "" ||
+      document.getElementById("kapV").value === "") {
+    hasil.textContent = "Masukkan nilai yang valid.";
+    return;
+  }
+
+  hasil.textContent = "Muatan listrik = " + angka(C * V) + " μC";
+}
+
+function hitungKapasitansi() {
+  const Q = Number(document.getElementById("kapQ").value);
+  const V = Number(document.getElementById("kapV2").value);
+  const hasil = document.getElementById("hasilKapasitansi");
+
+  if (Q < 0 || V <= 0 ||
+      document.getElementById("kapQ").value === "" ||
+      document.getElementById("kapV2").value === "") {
+    hasil.textContent = "Muatan tidak boleh negatif dan tegangan harus lebih dari nol.";
+    return;
+  }
+
+  hasil.textContent = "Kapasitansi = " + angka(Q / V) + " μF";
+}
+
+function formatSatuan(nilai, jenis) {
+  const a = Math.abs(nilai);
+
+  if (jenis === "C") {
+    if (a >= 1e-6) return angka(nilai * 1e6) + " μC";
+    if (a >= 1e-9) return angka(nilai * 1e9) + " nC";
+    return angka(nilai * 1e12) + " pC";
+  }
+
+  if (jenis === "E") {
+    if (a >= 1e-6) return angka(nilai * 1e6) + " μJ";
+    if (a >= 1e-9) return angka(nilai * 1e9) + " nJ";
+    return angka(nilai * 1e12) + " pJ";
+  }
+
+  if (a >= 1e-6) return angka(nilai * 1e6) + " μF";
+  if (a >= 1e-9) return angka(nilai * 1e9) + " nF";
+  return angka(nilai * 1e12) + " pF";
+}
+
+function simulasiKapasitor() {
+  const A = Number(document.getElementById("luasPelat").value);
+  const d = Number(document.getElementById("jarakPelat").value);
+  const V = Number(document.getElementById("teganganSim").value);
+
+  document.getElementById("nilaiLuas").textContent = A;
+  document.getElementById("nilaiJarak").textContent = d;
+  document.getElementById("nilaiTegangan").textContent = V;
+
+  // C = ε₀ A / d
+  // Luas diubah dari cm² ke m² dan jarak dari mm ke m.
+  const epsilon0 = 8.8541878128e-12;
+  const luas = A * 1e-4;
+  const jarak = d * 1e-3;
+  const C = epsilon0 * luas / jarak;
+  const Q = C * V;
+  const E = 0.5 * C * V * V;
+
+  document.getElementById("hasilC").textContent =
+    formatSatuan(C, "F");
+  document.getElementById("hasilQ").textContent =
+    formatSatuan(Q, "C");
+  document.getElementById("hasilE").textContent =
+    formatSatuan(E, "E");
+
+  document.getElementById("ilustrasiMedan").style.height =
+    (45 + d * 6) + "px";
+
+  let penjelasan =
+    "Dengan pengaturan ini, kapasitansi adalah " +
+    formatSatuan(C, "F") + ". ";
+
+  penjelasan +=
+    "Luas pelat yang lebih besar meningkatkan kapasitansi, " +
+    "sedangkan jarak yang lebih besar menurunkannya. ";
+
+  penjelasan +=
+    "Pada kapasitansi tetap, tegangan yang lebih besar " +
+    "meningkatkan muatan dan energi tersimpan.";
+
+  document.getElementById("penjelasanSimulasi").textContent =
+    penjelasan;
+}
+
+function resetSimulasi() {
+  document.getElementById("luasPelat").value = 100;
+  document.getElementById("jarakPelat").value = 1;
+  document.getElementById("teganganSim").value = 6;
+  simulasiKapasitor();
+}
+
+hitungMuatan();
+hitungKapasitansi();
+simulasiKapasitor();
 </script>
-</body>
+
+</script>
+</body><a href="#kalkulator">Kalkulator</a>
+<a href="#simulasi">Simulasi</a>
 </html>
