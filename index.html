@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bloom Study | Belajar Kapasitor</title>
+<style>
+:root{
+  --pink:#f7c8da;--pink2:#ffeaf2;--rose:#b85f85;--deep:#75445b;
+  --cream:#fffaf7;--lilac:#f2eaff;--sage:#eaf4e9;--text:#574651;
+  --white:#fff;--shadow:0 10px 28px rgba(174,102,135,.12)
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Trebuchet MS",Arial,sans-serif;background:var(--cream);color:var(--text);line-height:1.7}
+header{padding:30px 18px 36px;text-align:center;background:linear-gradient(135deg,#ffe7f0,#f4eaff 65%,#fff5e9);border-radius:0 0 32px 32px;position:relative;overflow:hidden}
+header:before,header:after{content:"✿";position:absolute;color:#e5a3bf;font-size:45px;opacity:.65}
+header:before{left:7%;top:18px;transform:rotate(-15deg)}header:after{right:8%;bottom:15px;transform:rotate(15deg)}
+.brand{font-size:.8rem;letter-spacing:3px;color:var(--rose);font-weight:bold}
+h1{font-family:Georgia,serif;font-size:clamp(2.1rem,7vw,3.7rem);line-height:1.12;color:var(--deep);margin:12px 0}
+header p{max-width:620px;margin:0 auto}
+.pill{display:inline-block;margin-top:16px;background:#fff9;border:1px solid #fff;padding:7px 14px;border-radius:999px;font-size:.85rem;color:var(--rose)}
+nav{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;padding:16px 12px;position:sticky;top:0;background:#fffaf7eF;backdrop-filter:blur(10px);z-index:5;border-bottom:1px solid #f4dbe5}
+nav a{color:var(--deep);text-decoration:none;background:#fff;border:1px solid #f1d4e0;padding:7px 12px;border-radius:999px;font-size:.85rem}
+main{max-width:950px;margin:auto;padding:20px 16px 55px}
+section{scroll-margin-top:95px;margin:25px 0}
+.section-title{font-family:Georgia,serif;color:var(--deep);font-size:1.8rem;margin:0 0 8px}
+.intro{margin-top:0;color:#866c7a}
+.card{background:white;border:1px solid #f3dce6;border-radius:22px;padding:21px;margin:14px 0;box-shadow:var(--shadow)}
+.soft-pink{background:linear-gradient(135deg,#fff0f6,#fff9fb)}
+.soft-lilac{background:linear-gradient(135deg,#f6f0ff,#fff)}
+.soft-sage{background:linear-gradient(135deg,#eff8ed,#fff)}
+h3{color:var(--rose);margin:0 0 8px;font-size:1.15rem}
+.big-emoji{font-size:2rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.note{padding:14px 16px;border-left:4px solid #e7a7c1;background:#fff5f9;border-radius:10px;margin:14px 0}
+.formula{font-family:Georgia,serif;font-size:1.3rem;text-align:center;background:#fff1f7;color:#8d4668;border-radius:14px;padding:15px;margin:12px 0}
+small,.small{font-size:.9rem}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden}
+th,td{text-align:left;padding:11px;border-bottom:1px solid #f1dce5}
+th{background:#ffeaf2;color:#854d68}
+button{border:0;border-radius:999px;padding:11px 17px;background:#bd6d91;color:white;font-weight:bold;cursor:pointer;font-size:.95rem}
+button:hover{filter:brightness(.97);transform:translateY(-1px)}
+input{padding:10px 12px;border:1px solid #e6bdcf;border-radius:12px;width:100%;font:inherit;color:var(--text);background:#fff}
+label{display:block;font-size:.9rem;margin:9px 0 5px}
+.result{font-weight:bold;color:#985174;margin-top:12px}
+.question{padding:14px 0;border-bottom:1px solid #f4e0e8}
+.question p{margin:0 0 8px;font-weight:bold}
+.question label{display:flex;gap:8px;align-items:flex-start}
+.question input{width:auto;margin-top:7px}
+footer{text-align:center;padding:28px 18px;background:linear-gradient(135deg,#ffeaf2,#f5edff);color:#80566b;border-radius:28px 28px 0 0}
+footer strong{font-family:Georgia,serif;font-size:1.2rem}
+a{color:#a44f77}
+@media(min-width:700px){main{padding-top:30px}.card{padding:25px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">🌷 BLOOM STUDY 🌷</div>
+  <h1>Kapasitor, si<br>penyimpan muatan!</h1>
+  <p>Belajar listrik tanpa harus berantem sama buku teks. Kita bahas pelan-pelan, pakai contoh sehari-hari, dan sedikit humor biar otak nggak langsung logout.</p>
+  <div class="pill">Materi Fisika • Kapasitor • Dibuat oleh Anjanika Ismail</div>
+</header>
+
+<nav>
+  <a href="#kenalan">Kenalan</a><a href="#cara">Cara kerja</a><a href="#jenis">Jenis</a><a href="#rumus">Rumus</a><a href="#contoh">Contoh soal</a><a href="#kuis">Kuis</a>
+</nav>
+
+<main>
+<section id="kenalan">
+  <h2 class="section-title">01. Kenalan dulu, yuk! 🌸</h2>
+  <p class="intro">Sebelum ketemu rumus, kita kenalan sama tokoh utama kita.</p>
+  <div class="card soft-pink">
+    <div class="big-emoji">🔋</div>
+    <h3>Apa itu kapasitor?</h3>
+    <p><b>Kapasitor adalah komponen listrik yang bisa menyimpan muatan listrik sementara.</b> Bayangkan seperti wadah kecil untuk menampung muatan. Bedanya, ini bukan wadah bakso, jadi yang ditampung bukan kuah dan pentol.</p>
+    <p>Kapasitor punya dua pelat penghantar yang dipisahkan oleh bahan isolator. Saat dihubungkan ke sumber tegangan, muatan pada kedua pelat menjadi berbeda: satu pelat kelebihan elektron, sementara pelat lainnya kekurangan elektron.</p>
+  </div>
+  <div class="grid">
+    <div class="card"><div class="big-emoji">🥤</div><h3>Analogi gampang</h3><p>Anggap kapasitor seperti gelas yang bisa menampung air. Semakin besar kapasitas gelas, semakin banyak air yang bisa ditampung. Pada kapasitor, yang dibahas adalah <b>muatan listrik</b>, bukan air sungguhan.</p></div>
+    <div class="card"><div class="big-emoji">🧠</div><h3>Ingat ini!</h3><p>Kapasitor bukan baterai. Kapasitor umumnya menyimpan energi untuk sementara dan bisa melepaskannya dengan cepat, sedangkan baterai menyimpan energi melalui proses kimia.</p></div>
+  </div>
+  <div class="note">✨ <b>Kalimat kunci:</b> kapasitor menyimpan muatan dan energi listrik dalam medan listrik di antara pelatnya.</div>
+</section>
+
+<section id="cara">
+  <h2 class="section-title">02. Cara kerjanya gimana? ⚡</h2>
+  <p class="intro">Tenang, kapasitor nggak punya tombol rahasia. Alurnya begini.</p>
+  <div class="grid">
+    <div class="card soft-lilac"><div class="big-emoji">1️⃣</div><h3>Dihubungkan ke sumber</h3><p>Kapasitor disambungkan ke baterai atau sumber tegangan. Sumber ini membuat muatan berpindah sehingga kedua pelat punya muatan berlawanan.</p></div>
+    <div class="card soft-pink"><div class="big-emoji">2️⃣</div><h3>Muatan terkumpul</h3><p>Muatan terpisah di kedua pelat dan terbentuk medan listrik di antaranya. Kapasitor sedang “terisi”, bukan sedang makan camilan.</p></div>
+    <div class="card soft-sage"><div class="big-emoji">3️⃣</div><h3>Energi tersimpan</h3><p>Energi tersimpan dalam medan listrik. Ketika rangkaian memungkinkan, kapasitor bisa melepaskan energi itu kembali.</p></div>
+  </div>
+  <div class="note">⚠️ Kapasitor tertentu, terutama yang besar, bisa tetap menyimpan muatan setelah sumber dilepas. Jangan menyentuh kaki komponennya sembarangan.</div>
+</section>
+
+<section id="jenis">
+  <h2 class="section-title">03. Jenis-jenis kapasitor 🧁</h2>
+  <p class="intro">Bentuknya macam-macam, seperti karakter dalam satu kelas: beda rupa, beda sifat.</p>
+  <div class="grid">
+    <div class="card"><div class="big-emoji">📄</div><h3>Kapasitor kertas</h3><p>Menggunakan kertas khusus sebagai bahan dielektrik di antara pelat. Dipakai pada rangkaian tertentu; sekarang banyak aplikasi memakai jenis modern.</p></div>
+    <div class="card"><div class="big-emoji">🪨</div><h3>Kapasitor keramik</h3><p>Menggunakan bahan keramik sebagai dielektrik. Umumnya kecil dan sering dipakai untuk menyaring gangguan atau membantu kestabilan rangkaian.</p></div>
+    <div class="card"><div class="big-emoji">🥫</div><h3>Kapasitor elektrolit</h3><p>Biasanya berbentuk tabung kecil dan punya nilai kapasitansi relatif besar. Umumnya memiliki kutub positif dan negatif, jadi pemasangannya harus benar.</p></div>
+  </div>
+</section>
+
+<section id="fungsi">
+  <h2 class="section-title">04. Kapasitor dipakai buat apa? 🛠️</h2>
+  <div class="card">
+    <p>Komponen kecil ini punya beberapa tugas penting, bukan cuma numpang nama di papan rangkaian.</p>
+    <ul>
+      <li><b>Menyimpan energi sementara</b> untuk digunakan dalam rangkaian.</li>
+      <li><b>Menyaring perubahan tegangan</b> agar tegangan lebih stabil pada rangkaian tertentu.</li>
+      <li><b>Mengurangi gangguan sinyal</b> atau membantu memisahkan sinyal AC dan DC sesuai rancangan rangkaian.</li>
+      <li><b>Membantu motor listrik tertentu</b> saat mulai berputar atau saat bekerja.</li>
+      <li><b>Mendukung lampu kilat kamera</b> yang memerlukan pelepasan energi dalam waktu singkat.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="rumus">
+  <h2 class="section-title">05. Rumus inti, jangan panik dulu 📚</h2>
+  <div class="card">
+    <h3>Rumus kapasitansi</h3>
+    <div class="formula">C = Q / V</div>
+    <ul>
+      <li><b>C</b> = kapasitansi, satuannya farad (F)</li>
+      <li><b>Q</b> = besar muatan listrik, satuannya coulomb (C)</li>
+      <li><b>V</b> = tegangan, satuannya volt (V)</li>
+    </ul>
+    <p>Artinya, kapasitansi menunjukkan seberapa banyak muatan yang dapat disimpan untuk setiap volt tegangan. Makin besar C, makin banyak muatan yang tersimpan pada tegangan yang sama.</p>
+    <div class="formula">Q = C × V</div>
+    <p>Kalau yang dicari muatan, tinggal kalikan kapasitansi dengan tegangan. Rumus yang sama, cuma pindah posisi. Aljabar memang hobi mengatur ulang furnitur.</p>
+  </div>
+  <div class="card soft-lilac">
+    <h3>Kapasitor pelat sejajar</h3>
+    <div class="formula">C = ε A / d</div>
+    <p><b>ε</b> adalah permitivitas bahan di antara pelat, <b>A</b> luas pelat, dan <b>d</b> jarak antar pelat.</p>
+    <p>Secara umum, luas pelat yang lebih besar membuat kapasitansi lebih besar. Jarak pelat yang lebih jauh membuat kapasitansi lebih kecil, jika faktor lain tetap.</p>
+  </div>
+  <div class="card">
+    <h3>Susunan kapasitor</h3>
+    <p><b>Paralel:</b> kapasitansi total dijumlahkan.</p>
+    <div class="formula">C<sub>total</sub> = C₁ + C₂ + C₃ + ...</div>
+    <p><b>Seri:</b> jumlah kebalikan kapasitansi dijumlahkan.</p>
+    <div class="formula">1/C<sub>total</sub> = 1/C₁ + 1/C₂ + ...</div>
+    <p class="small">Tips: paralel itu langsung tambah. Seri perlu kebalikan dulu. Jangan tertukar, nanti hasilnya ikut bingung.</p>
+  </div>
+  <div class="card soft-sage">
+    <h3>Energi yang tersimpan</h3>
+    <div class="formula">E = ½ C V²</div>
+    <p><b>E</b> adalah energi dalam joule (J). Rumus ini menunjukkan bahwa energi bergantung pada kapasitansi dan kuadrat tegangan.</p>
+  </div>
+  <div class="note">🔎 <b>Konversi penting:</b> 1 μF = 10⁻⁶ F, 1 nF = 10⁻⁹ F, dan 1 pF = 10⁻¹² F. Huruf kecil di depan satuan itu penting, jadi jangan sampai mikro berubah jadi mega. Jauh sekali bedanya.</div>
+</section>
+
+<section id="contoh">
+  <h2 class="section-title">06. Contoh soal, kita coba bareng ✏️</h2>
+  <div class="card soft-pink">
+    <h3>Soal 1: cari kapasitansi</h3>
+    <p>Sebuah kapasitor menyimpan muatan 12 μC ketika diberi tegangan 4 V. Berapa kapasitansinya?</p>
+    <p><b>Diketahui:</b> Q = 12 μC, V = 4 V</p>
+    <p><b>Rumus:</b> C = Q/V</p>
+    <p><b>Hitung:</b> C = 12 μC / 4 V = 3 μF</p>
+    <p><b>Jawaban:</b> <span style="color:#a34d76">3 μF</span>. Tidak perlu mengubah ke farad kalau satuan μF sudah cocok dan tidak diminta satuan lain.</p>
+  </div>
+  <div class="card soft-lilac">
+    <h3>Soal 2: cari muatan</h3>
+    <p>Kapasitor 5 μF dihubungkan ke tegangan 6 V. Berapa muatannya?</p>
+    <p><b>Rumus:</b> Q = C × V</p>
+    <p><b>Hitung:</b> Q = 5 μF × 6 V = 30 μC</p>
+    <p><b>Jawaban:</b> 30 μC. Mikrofarad dikali volt menghasilkan mikrocoulomb. Satuan juga ikut kerja kelompok.</p>
+  </div>
+  <div class="card">
+    <h3>Latihan mini 📝</h3>
+    <p>Sebuah kapasitor 8 μF diberi tegangan 3 V. Berapa muatannya?</p>
+    <label for="answer">Jawaban kamu (dalam μC)</label>
+    <input id="answer" type="number" placeholder="Tulis angka saja, misalnya 12">
+    <button onclick="checkAnswer()">Periksa jawaban</button>
+    <p id="answerResult" class="result" aria-live="polite"></p>
+  </div>
+</section>
+
+<section id="video">
+  <h2 class="section-title">07. Mau belajar lewat video? 🎬</h2>
+  <p class="intro">Kadang otak lebih cepat paham kalau ada yang menjelaskan sambil gambar-gambar. Manusia memang suka visual, bukan cuma paragraf panjang.</p>
+  <div class="grid">
+    <div class="card"><h3>Video: konsep kapasitor</h3><p>Video pembelajaran dasar kapasitor dan cara kerjanya.</p><a href="https://www.youtube.com/results?search_query=penjelasan+kapasitor+fisika+SMA" target="_blank" rel="noopener">Cari video di YouTube ↗</a></div>
+    <div class="card"><h3>Video: rumus kapasitor</h3><p>Latihan menghitung kapasitansi, muatan, dan tegangan.</p><a href="https://www.youtube.com/results?search_query=contoh+soal+kapasitor+fisika+SMA" target="_blank" rel="noopener">Cari contoh soal ↗</a></div>
+  </div>
+  <p class="small">Tautan ini membuka hasil pencarian YouTube supaya kamu bisa memilih video yang cocok dan masih tersedia.</p>
+</section>
+
+<section id="kuis">
+  <h2 class="section-title">08. Kuis kecil sebelum pulang 🌼</h2>
+  <p class="intro">Empat soal aja. Bukan ujian akhir kehidupan.</p>
+  <div class="card" id="quiz">
+    <div class="question">
+      <p>1. Apa fungsi utama kapasitor?</p>
+      <label><input type="radio" name="q1" value="a"> Mengubah listrik menjadi bensin</label>
+      <label><input type="radio" name="q1" value="b"> Menyimpan muatan dan energi listrik sementara</label>
+      <label><input type="radio" name="q1" value="c"> Menghasilkan air</label>
+    </div>
+    <div class="question">
+      <p>2. Satuan kapasitansi adalah ...</p>
+      <label><input type="radio" name="q2" value="a"> Farad</label>
+      <label><input type="radio" name="q2" value="b"> Volt per meter saja</label>
+      <label><input type="radio" name="q2" value="c"> Kilogram</label>
+    </div>
+    <div class="question">
+      <p>3. Rumus kapasitansi yang benar adalah ...</p>
+      <label><input type="radio" name="q3" value="a"> C = V/Q</label>
+      <label><input type="radio" name="q3" value="b"> C = Q × V</label>
+      <label><input type="radio" name="q3" value="c"> C = Q/V</label>
+    </div>
+    <div class="question">
+      <p>4. Jika kapasitor disusun paralel, kapasitansi totalnya ...</p>
+      <label><input type="radio" name="q4" value="a"> Dijumlahkan</label>
+      <label><input type="radio" name="q4" value="b"> Selalu nol</label>
+      <label><input type="radio" name="q4" value="c"> Selalu lebih kecil dari semua kapasitor</label>
+    </div>
+    <button onclick="gradeQuiz()">Lihat hasilku 🌷</button>
+    <p id="quizResult" class="result" aria-live="polite"></p>
+  </div>
+</section>
+
+<section>
+  <div class="card soft-pink" style="text-align:center">
+    <div class="big-emoji">🌷 💗 🌷</div>
+    <h2 class="section-title">A little reminder</h2>
+    <p>Belajar itu bukan lomba siapa paling cepat paham. Kalau hari ini masih bingung, bukan berarti kamu nggak bisa. Mungkin materinya cuma perlu dijelaskan dengan cara yang lebih cocok buat kamu.</p>
+    <p><b>Pelan-pelan juga tetap maju. Istirahat boleh, menyerah karena satu rumus? Jangan dulu.</b></p>
+  </div>
+</section>
+</main>
+<footer>
+  <strong>Bloom Study ♡</strong>
+  <p>Belajar dengan hati, bertumbuh setiap hari.</p>
+  <p class="small">Dibuat oleh <b>Anjanika Ismail</b> • Website pembelajaran Fisika</p>
+</footer>
+<script>
+function checkAnswer(){
+  const input=document.getElementById('answer').value;
+  const out=document.getElementById('answerResult');
+  if(input.trim()===''){out.textContent='Isi jawabannya dulu, ilmuwan kecil 🌷';return;}
+  if(Number(input)===24){out.textContent='Betul! Q = C × V = 8 μF × 3 V = 24 μC. Otakmu dan rumusnya akhirnya berdamai 🎉';}
+  else{out.textContent='Belum tepat. Coba hitung lagi: Q = C × V = 8 × 3. Kamu pasti bisa!';}
+}
+function gradeQuiz(){
+  const answers={q1:'b',q2:'a',q3:'c',q4:'a'};
+  let score=0,answered=0;
+  for(const q in answers){
+    const chosen=document.querySelector('input[name="'+q+'"]:checked');
+    if(chosen){answered++;if(chosen.value===answers[q])score++;}
+  }
+  const out=document.getElementById('quizResult');
+  if(answered<4){out.textContent='Kamu baru menjawab '+answered+' dari 4 soal. Lengkapi dulu semuanya, biar hasilnya adil 🌸';return;}
+  let msg=score===4?'Sempurna! Kapasitor sudah bukan misteri lagi. 🌟':score>=2?'Lumayan! Tinggal cek lagi bagian yang masih keliru. 🌷':'Nggak apa-apa, namanya juga belajar. Baca ulang materi lalu coba lagi 💗';
+  out.textContent='Nilai kamu: '+score+'/4. '+msg;
+}
+<section id="simulasi" class="card soft-lilac">
+  <h2>⚡ Simulasi Kapasitor Pelat Sejajar</h2>
+
+  <p>
+    Coba ubah pengaturan berikut dan amati hasilnya.
+    Simulasi menggunakan udara sebagai bahan di antara pelat.
+  </p>
+
+  <label for="luasPelat">
+    Luas pelat: <span id="nilaiLuas">100</span> cm²
+  </label>
+  <input id="luasPelat" type="range"
+         min="20" max="200" step="10" value="100"
+         oninput="simulasiKapasitor()">
+
+  <label for="jarakPelat">
+    Jarak antarpelat: <span id="nilaiJarak">1</span> mm
+  </label>
+  <input id="jarakPelat" type="range"
+         min="1" max="10" step="1" value="1"
+         oninput="simulasiKapasitor()">
+
+  <label for="teganganSim">
+    Tegangan: <span id="nilaiTegangan">6</span> V
+  </label>
+  <input id="teganganSim" type="range"
+         min="1" max="24" step="1" value="6"
+         oninput="simulasiKapasitor()">
+
+  <div style="margin:24px auto; max-width:320px; text-align:center">
+    <div style="height:16px;background:#d77ca3;border-radius:5px"></div>
+    <div id="ilustrasiMedan"
+         style="height:70px;display:flex;align-items:center;
+         justify-content:space-evenly;color:#b85f85;font-size:24px">
+      <span>↕</span><span>↕</span><span>↕</span>
+      <span>↕</span><span>↕</span>
+    </div>
+    <div style="height:16px;background:#d77ca3;border-radius:5px"></div>
+    <small>Ilustrasi dua pelat penghantar.</small>
+  </div>
+
+  <div class="card">
+    <p><b>Kapasitansi</b></p>
+    <h3 id="hasilC">--</h3>
+
+    <p><b>Muatan listrik</b></p>
+    <h3 id="hasilQ">--</h3>
+
+    <p><b>Energi tersimpan</b></p>
+    <h3 id="hasilE">--</h3>
+  </div>
+
+  <p id="penjelasanSimulasi" class="note"></p>
+
+  <button onclick="resetSimulasi()">Atur Ulang</button>
+</section>
+
+<script>
+function angka(n) {
+  return n.toLocaleString("id-ID", {
+    maximumFractionDigits: 6
+  });
+}
+
+function hitungMuatan() {
+  const C = Number(document.getElementById("kapC").value);
+  const V = Number(document.getElementById("kapV").value);
+  const hasil = document.getElementById("hasilMuatan");
+
+  if (C < 0 || V < 0 ||
+      document.getElementById("kapC").value === "" ||
+      document.getElementById("kapV").value === "") {
+    hasil.textContent = "Masukkan nilai yang valid.";
+    return;
+  }
+
+  hasil.textContent = "Muatan listrik = " + angka(C * V) + " μC";
+}
+
+function hitungKapasitansi() {
+  const Q = Number(document.getElementById("kapQ").value);
+  const V = Number(document.getElementById("kapV2").value);
+  const hasil = document.getElementById("hasilKapasitansi");
+
+  if (Q < 0 || V <= 0 ||
+      document.getElementById("kapQ").value === "" ||
+      document.getElementById("kapV2").value === "") {
+    hasil.textContent = "Muatan tidak boleh negatif dan tegangan harus lebih dari nol.";
+    return;
+  }
+
+  hasil.textContent = "Kapasitansi = " + angka(Q / V) + " μF";
+}
+
+function formatSatuan(nilai, jenis) {
+  const a = Math.abs(nilai);
+
+  if (jenis === "C") {
+    if (a >= 1e-6) return angka(nilai * 1e6) + " μC";
+    if (a >= 1e-9) return angka(nilai * 1e9) + " nC";
+    return angka(nilai * 1e12) + " pC";
+  }
+
+  if (jenis === "E") {
+    if (a >= 1e-6) return angka(nilai * 1e6) + " μJ";
+    if (a >= 1e-9) return angka(nilai * 1e9) + " nJ";
+    return angka(nilai * 1e12) + " pJ";
+  }
+
+  if (a >= 1e-6) return angka(nilai * 1e6) + " μF";
+  if (a >= 1e-9) return angka(nilai * 1e9) + " nF";
+  return angka(nilai * 1e12) + " pF";
+}
+
+function simulasiKapasitor() {
+  const A = Number(document.getElementById("luasPelat").value);
+  const d = Number(document.getElementById("jarakPelat").value);
+  const V = Number(document.getElementById("teganganSim").value);
+
+  document.getElementById("nilaiLuas").textContent = A;
+  document.getElementById("nilaiJarak").textContent = d;
+  document.getElementById("nilaiTegangan").textContent = V;
+
+  // C = ε₀ A / d
+  // Luas diubah dari cm² ke m² dan jarak dari mm ke m.
+  const epsilon0 = 8.8541878128e-12;
+  const luas = A * 1e-4;
+  const jarak = d * 1e-3;
+  const C = epsilon0 * luas / jarak;
+  const Q = C * V;
+  const E = 0.5 * C * V * V;
+
+  document.getElementById("hasilC").textContent =
+    formatSatuan(C, "F");
+  document.getElementById("hasilQ").textContent =
+    formatSatuan(Q, "C");
+  document.getElementById("hasilE").textContent =
+    formatSatuan(E, "E");
+
+  document.getElementById("ilustrasiMedan").style.height =
+    (45 + d * 6) + "px";
+
+  let penjelasan =
+    "Dengan pengaturan ini, kapasitansi adalah " +
+    formatSatuan(C, "F") + ". ";
+
+  penjelasan +=
+    "Luas pelat yang lebih besar meningkatkan kapasitansi, " +
+    "sedangkan jarak yang lebih besar menurunkannya. ";
+
+  penjelasan +=
+    "Pada kapasitansi tetap, tegangan yang lebih besar " +
+    "meningkatkan muatan dan energi tersimpan.";
+
+  document.getElementById("penjelasanSimulasi").textContent =
+    penjelasan;
+}
+
+function resetSimulasi() {
+  document.getElementById("luasPelat").value = 100;
+  document.getElementById("jarakPelat").value = 1;
+  document.getElementById("teganganSim").value = 6;
+  simulasiKapasitor();
+}
+
+hitungMuatan();
+hitungKapasitansi();
+simulasiKapasitor();
+</script>
+
+</script>
+</body><a href="#kalkulator">Kalkulator</a>
+<a href="#simulasi">Simulasi</a>
+</html>
